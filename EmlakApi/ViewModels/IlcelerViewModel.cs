@@ -9,6 +9,7 @@ namespace EmlakApi.ViewModels
     {
         public string IlceId { get; set; }
         public string IlceAd { get; set; }
+        public string IlceIlid { get; set; }
         public string IlceIlAd { get; set; }
     }
 }

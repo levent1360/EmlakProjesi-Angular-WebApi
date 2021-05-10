@@ -793,11 +793,141 @@ namespace EmlakApi.Controllers
                 sonuc.mesaj = "Bu il adına kayıtlı ilan bulunmaktadır. Silinemez.";
                 return sonuc;
             }
+            if (db.Ilceler.Count(s => s.IlceIlid == ILId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu ilde kayıtlı ilçeler bulunmaktadır. Silinemez.";
+                return sonuc;
+            }
 
             db.Iller.Remove(silil);
             db.SaveChanges();
             sonuc.islem = true;
             sonuc.mesaj = "İl bilgisi silindi.";
+            return sonuc;
+        }
+        #endregion
+
+        #region İlçeler
+        [HttpGet]
+        [Route("api/ilcelerliste")]
+        public List<IlcelerViewModel> IlcelerListe()
+        {
+            List<IlcelerViewModel> ilcelerliste = db.Ilceler.Select(x => new IlcelerViewModel()
+            {
+              IlceId=x.IlceId,
+              IlceAd=x.IlceAd,
+              IlceIlid=x.IlceIlid,
+              IlceIlAd=x.Iller.ILAd
+            }).ToList();
+
+            return ilcelerliste;
+        }
+
+        [HttpGet]
+        [Route("api/Ilcelerbyid/{IlceId}")]
+        public IlcelerViewModel Ilcelerbyid(string IlceId)
+        {
+            IlcelerViewModel ilce = db.Ilceler.Where(s => s.IlceId == IlceId).Select(x => new IlcelerViewModel()
+            {
+                IlceId = x.IlceId,
+                IlceAd = x.IlceAd,
+                IlceIlid = x.IlceIlid,
+                IlceIlAd = x.Iller.ILAd
+            }).SingleOrDefault();
+
+            return ilce;
+        }
+
+        [HttpGet]
+        [Route("api/Ilcelerbyilid/{IlId}")]
+        public IlcelerViewModel Ilcelerbyilid(string IlId)
+        {
+            IlcelerViewModel ilce = db.Ilceler.Where(s => s.IlceIlid == IlId).Select(x => new IlcelerViewModel()
+            {
+                IlceId = x.IlceId,
+                IlceAd = x.IlceAd,
+                IlceIlid = x.IlceIlid,
+                IlceIlAd = x.Iller.ILAd
+            }).SingleOrDefault();
+
+            return ilce;
+        }
+        [HttpPost]
+        [Route("api/ilceekle")]
+        public SonucModel ilceEkle(Ilceler ilce)
+        {
+            Ilceler yeniile = new Ilceler()
+            {
+                IlceId = Guid.NewGuid().ToString(),
+                IlceAd=ilce.IlceAd,
+                IlceIlid=ilce.IlceIlid
+            };
+
+            if (db.Ilceler.Count(s => s.IlceAd == ilce.IlceAd && s.IlceIlid==ilce.IlceIlid) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Girilen ilce adı kayıtlıdır";
+                return sonuc;
+            }
+
+            db.Ilceler.Add(yeniile);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "İlce bilgisi başarıyla eklendi.";
+            return sonuc;
+        }
+
+        [HttpPut]
+        [Route("api/ilceduzenle")]
+        public SonucModel ilceDuzenle(Ilceler ilce)
+        {
+            Ilceler duzenleilce = db.Ilceler.Where(s => s.IlceId == ilce.IlceId).SingleOrDefault();
+            if (duzenleilce == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "kayıt bulunamadı";
+                return sonuc;
+            }
+            if (db.Ilceler.Count(s => s.IlceAd == ilce.IlceAd && s.IlceIlid==ilce.IlceIlid && s.IlceId != ilce.IlceId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "İlçe adı mevcuttur.";
+                return sonuc;
+            }
+
+            duzenleilce.IlceAd = ilce.IlceAd;
+            duzenleilce.IlceIlid = ilce.IlceIlid;
+
+            db.SaveChanges();
+
+            sonuc.islem = true;
+            sonuc.mesaj = "İlce adı başarıyla düzenlendi.";
+            return sonuc;
+        }
+
+        [HttpDelete]
+        [Route("api/ilcesil/{IlceId}")]
+        public SonucModel ilceSil(string IlceId)
+        {
+            Ilceler sililce = db.Ilceler.Where(s => s.IlceId == IlceId).SingleOrDefault();
+            if (sililce == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Kayıt bulunamadı";
+                return sonuc;
+            }
+            if (db.Ilanlar.Count(s => s.IlanILceId == IlceId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu ilce adına kayıtlı ilan bulunmaktadır. Silinemez.";
+                return sonuc;
+            }
+
+            db.Ilceler.Remove(sililce);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "İlçe bilgisi silindi.";
             return sonuc;
         }
         #endregion
