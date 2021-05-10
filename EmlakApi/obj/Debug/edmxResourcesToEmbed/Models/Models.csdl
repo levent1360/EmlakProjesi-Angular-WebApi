@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmlakAngularModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EsyaDurumu">
+    <Key>
+      <PropertyRef Name="EsyaId" />
+    </Key>
+    <Property Name="EsyaId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EsyaAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_EsyaDurumu" FromRole="EsyaDurumu" ToRole="Ilanlar" />
+  </EntityType>
+  <EntityType Name="Ilanlar">
+    <Key>
+      <PropertyRef Name="IlanId" />
+    </Key>
+    <Property Name="IlanId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanFiyat" Type="Int32" Nullable="false" />
+    <Property Name="IlanMKare" Type="Int32" Nullable="false" />
+    <Property Name="IlanILId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanILceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanTipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanEsyaId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanYakitTipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanOdaSayId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanFotoUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlanSahibiId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="EsyaDurumu" Relationship="Self.FK_Ilanlar_EsyaDurumu" FromRole="Ilanlar" ToRole="EsyaDurumu" />
+    <NavigationProperty Name="IlanTip" Relationship="Self.FK_Ilanlar_IlanTip" FromRole="Ilanlar" ToRole="IlanTip" />
+    <NavigationProperty Name="Ilceler" Relationship="Self.FK_Ilanlar_Ilceler" FromRole="Ilanlar" ToRole="Ilceler" />
+    <NavigationProperty Name="Iller" Relationship="Self.FK_Ilanlar_Iller" FromRole="Ilanlar" ToRole="Iller" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.FK_Ilanlar_Kullanicilar" FromRole="Ilanlar" ToRole="Kullanicilar" />
+    <NavigationProperty Name="OdaSayisi" Relationship="Self.FK_Ilanlar_OdaSayisi" FromRole="Ilanlar" ToRole="OdaSayisi" />
+    <NavigationProperty Name="YakitTipi" Relationship="Self.FK_Ilanlar_YakitTipi" FromRole="Ilanlar" ToRole="YakitTipi" />
+  </EntityType>
+  <EntityType Name="IlanTip">
+    <Key>
+      <PropertyRef Name="TipId" />
+    </Key>
+    <Property Name="TipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TipAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_IlanTip" FromRole="IlanTip" ToRole="Ilanlar" />
+  </EntityType>
+  <EntityType Name="Ilceler">
+    <Key>
+      <PropertyRef Name="IlceId" />
+    </Key>
+    <Property Name="IlceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IlceAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_Ilceler" FromRole="Ilceler" ToRole="Ilanlar" />
+    <Property Name="IlceIlid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Iller" Relationship="EmlakAngularModel.FK_Ilceler_Iller" FromRole="Ilceler" ToRole="Iller" />
+  </EntityType>
+  <EntityType Name="Iller">
+    <Key>
+      <PropertyRef Name="ILId" />
+    </Key>
+    <Property Name="ILId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ILAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_Iller" FromRole="Iller" ToRole="Ilanlar" />
+    <NavigationProperty Name="Ilceler" Relationship="EmlakAngularModel.FK_Ilceler_Iller" FromRole="Iller" ToRole="Ilceler" />
+  </EntityType>
+  <EntityType Name="Kullanicilar">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciTipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_Kullanicilar" FromRole="Kullanicilar" ToRole="Ilanlar" />
+    <NavigationProperty Name="KullaniciTipler" Relationship="Self.FK_Kullanicilar_KullaniciTipler" FromRole="Kullanicilar" ToRole="KullaniciTipler" />
+  </EntityType>
+  <EntityType Name="KullaniciTipler">
+    <Key>
+      <PropertyRef Name="KullaniciTipId" />
+    </Key>
+    <Property Name="KullaniciTipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciTipAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.FK_Kullanicilar_KullaniciTipler" FromRole="KullaniciTipler" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="OdaSayisi">
+    <Key>
+      <PropertyRef Name="OdaSayisiId" />
+    </Key>
+    <Property Name="OdaSayisiId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OdaSayisiAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_OdaSayisi" FromRole="OdaSayisi" ToRole="Ilanlar" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="YakitTipi">
+    <Key>
+      <PropertyRef Name="YakitTipId" />
+    </Key>
+    <Property Name="YakitTipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="YakitTipAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ilanlar" Relationship="Self.FK_Ilanlar_YakitTipi" FromRole="YakitTipi" ToRole="Ilanlar" />
+  </EntityType>
+  <Association Name="FK_Ilanlar_EsyaDurumu">
+    <End Role="EsyaDurumu" Type="Self.EsyaDurumu" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EsyaDurumu">
+        <PropertyRef Name="EsyaId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanEsyaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilanlar_IlanTip">
+    <End Role="IlanTip" Type="Self.IlanTip" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IlanTip">
+        <PropertyRef Name="TipId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanTipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilanlar_Ilceler">
+    <End Role="Ilceler" Type="Self.Ilceler" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ilceler">
+        <PropertyRef Name="IlceId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanILceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilanlar_Iller">
+    <End Role="Iller" Type="Self.Iller" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Iller">
+        <PropertyRef Name="ILId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanILId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilanlar_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanSahibiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilanlar_OdaSayisi">
+    <End Role="OdaSayisi" Type="Self.OdaSayisi" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OdaSayisi">
+        <PropertyRef Name="OdaSayisiId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanOdaSayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilanlar_YakitTipi">
+    <End Role="YakitTipi" Type="Self.YakitTipi" Multiplicity="1" />
+    <End Role="Ilanlar" Type="Self.Ilanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YakitTipi">
+        <PropertyRef Name="YakitTipId" />
+      </Principal>
+      <Dependent Role="Ilanlar">
+        <PropertyRef Name="IlanYakitTipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanicilar_KullaniciTipler">
+    <End Role="KullaniciTipler" Type="Self.KullaniciTipler" Multiplicity="1" />
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KullaniciTipler">
+        <PropertyRef Name="KullaniciTipId" />
+      </Principal>
+      <Dependent Role="Kullanicilar">
+        <PropertyRef Name="KullaniciTipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmlakAngularEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EsyaDurumu" EntityType="Self.EsyaDurumu" />
+    <EntitySet Name="Ilanlar" EntityType="Self.Ilanlar" />
+    <EntitySet Name="IlanTip" EntityType="Self.IlanTip" />
+    <EntitySet Name="Ilceler" EntityType="Self.Ilceler" />
+    <EntitySet Name="Iller" EntityType="Self.Iller" />
+    <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" />
+    <EntitySet Name="KullaniciTipler" EntityType="Self.KullaniciTipler" />
+    <EntitySet Name="OdaSayisi" EntityType="Self.OdaSayisi" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="YakitTipi" EntityType="Self.YakitTipi" />
+    <AssociationSet Name="FK_Ilanlar_EsyaDurumu" Association="Self.FK_Ilanlar_EsyaDurumu">
+      <End Role="EsyaDurumu" EntitySet="EsyaDurumu" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilanlar_IlanTip" Association="Self.FK_Ilanlar_IlanTip">
+      <End Role="IlanTip" EntitySet="IlanTip" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilanlar_Ilceler" Association="Self.FK_Ilanlar_Ilceler">
+      <End Role="Ilceler" EntitySet="Ilceler" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilanlar_Iller" Association="Self.FK_Ilanlar_Iller">
+      <End Role="Iller" EntitySet="Iller" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilanlar_Kullanicilar" Association="Self.FK_Ilanlar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilanlar_OdaSayisi" Association="Self.FK_Ilanlar_OdaSayisi">
+      <End Role="OdaSayisi" EntitySet="OdaSayisi" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilanlar_YakitTipi" Association="Self.FK_Ilanlar_YakitTipi">
+      <End Role="YakitTipi" EntitySet="YakitTipi" />
+      <End Role="Ilanlar" EntitySet="Ilanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanicilar_KullaniciTipler" Association="Self.FK_Kullanicilar_KullaniciTipler">
+      <End Role="KullaniciTipler" EntitySet="KullaniciTipler" />
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilceler_Iller" Association="EmlakAngularModel.FK_Ilceler_Iller">
+      <End Role="Iller" EntitySet="Iller" />
+      <End Role="Ilceler" EntitySet="Ilceler" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Ilceler_Iller">
+    <End Type="EmlakAngularModel.Iller" Role="Iller" Multiplicity="1" />
+    <End Type="EmlakAngularModel.Ilceler" Role="Ilceler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Iller">
+        <PropertyRef Name="ILId" />
+      </Principal>
+      <Dependent Role="Ilceler">
+        <PropertyRef Name="IlceIlid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

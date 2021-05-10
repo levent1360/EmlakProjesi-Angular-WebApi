@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8281da63b1b74622a0378ab755267428" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="EmlakAngularModel.EsyaDurumu" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.Ilanlar" Width="1.5" PointX="10" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.IlanTip" Width="1.5" PointX="12.375" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.Ilceler" Width="1.5" PointX="14.375" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.Iller" Width="1.5" PointX="5.625" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.Kullanicilar" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.KullaniciTipler" Width="1.5" PointX="10" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.OdaSayisi" Width="1.5" PointX="14.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.sysdiagrams" Width="1.5" PointX="12" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmlakAngularModel.YakitTipi" Width="1.5" PointX="5" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_EsyaDurumu" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_IlanTip" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_Ilceler" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_Iller" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_Kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_OdaSayisi" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilanlar_YakitTipi" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Kullanicilar_KullaniciTipler" ManuallyRouted="false" />
+        <AssociationConnector Association="EmlakAngularModel.FK_Ilceler_Iller" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

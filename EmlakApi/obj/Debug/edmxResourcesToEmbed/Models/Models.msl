@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmlakAngularModelStoreContainer" CdmEntityContainer="EmlakAngularEntities">
+    <EntitySetMapping Name="EsyaDurumu">
+      <EntityTypeMapping TypeName="EmlakAngularModel.EsyaDurumu">
+        <MappingFragment StoreEntitySet="EsyaDurumu">
+          <ScalarProperty Name="EsyaId" ColumnName="EsyaId" />
+          <ScalarProperty Name="EsyaAd" ColumnName="EsyaAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ilanlar">
+      <EntityTypeMapping TypeName="EmlakAngularModel.Ilanlar">
+        <MappingFragment StoreEntitySet="Ilanlar">
+          <ScalarProperty Name="IlanId" ColumnName="IlanId" />
+          <ScalarProperty Name="IlanAd" ColumnName="IlanAd" />
+          <ScalarProperty Name="IlanFiyat" ColumnName="IlanFiyat" />
+          <ScalarProperty Name="IlanMKare" ColumnName="IlanMKare" />
+          <ScalarProperty Name="IlanILId" ColumnName="IlanILId" />
+          <ScalarProperty Name="IlanILceId" ColumnName="IlanILceId" />
+          <ScalarProperty Name="IlanTipId" ColumnName="IlanTipId" />
+          <ScalarProperty Name="IlanEsyaId" ColumnName="IlanEsyaId" />
+          <ScalarProperty Name="IlanYakitTipId" ColumnName="IlanYakitTipId" />
+          <ScalarProperty Name="IlanOdaSayId" ColumnName="IlanOdaSayId" />
+          <ScalarProperty Name="IlanFotoUrl" ColumnName="IlanFotoUrl" />
+          <ScalarProperty Name="IlanAdres" ColumnName="IlanAdres" />
+          <ScalarProperty Name="IlanSahibiId" ColumnName="IlanSahibiId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IlanTip">
+      <EntityTypeMapping TypeName="EmlakAngularModel.IlanTip">
+        <MappingFragment StoreEntitySet="IlanTip">
+          <ScalarProperty Name="TipId" ColumnName="TipId" />
+          <ScalarProperty Name="TipAd" ColumnName="TipAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ilceler">
+      <EntityTypeMapping TypeName="EmlakAngularModel.Ilceler">
+        <MappingFragment StoreEntitySet="Ilceler">
+          <ScalarProperty Name="IlceIlid" ColumnName="IlceIlid" />
+          <ScalarProperty Name="IlceId" ColumnName="IlceId" />
+          <ScalarProperty Name="IlceAd" ColumnName="IlceAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Iller">
+      <EntityTypeMapping TypeName="EmlakAngularModel.Iller">
+        <MappingFragment StoreEntitySet="Iller">
+          <ScalarProperty Name="ILId" ColumnName="ILId" />
+          <ScalarProperty Name="ILAd" ColumnName="ILAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanicilar">
+      <EntityTypeMapping TypeName="EmlakAngularModel.Kullanicilar">
+        <MappingFragment StoreEntitySet="Kullanicilar">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="KullaniciSoyadi" ColumnName="KullaniciSoyadi" />
+          <ScalarProperty Name="KullaniciMail" ColumnName="KullaniciMail" />
+          <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+          <ScalarProperty Name="KullaniciTipId" ColumnName="KullaniciTipId" />
+          <ScalarProperty Name="KullaniciTel" ColumnName="KullaniciTel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KullaniciTipler">
+      <EntityTypeMapping TypeName="EmlakAngularModel.KullaniciTipler">
+        <MappingFragment StoreEntitySet="KullaniciTipler">
+          <ScalarProperty Name="KullaniciTipId" ColumnName="KullaniciTipId" />
+          <ScalarProperty Name="KullaniciTipAd" ColumnName="KullaniciTipAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OdaSayisi">
+      <EntityTypeMapping TypeName="EmlakAngularModel.OdaSayisi">
+        <MappingFragment StoreEntitySet="OdaSayisi">
+          <ScalarProperty Name="OdaSayisiId" ColumnName="OdaSayisiId" />
+          <ScalarProperty Name="OdaSayisiAd" ColumnName="OdaSayisiAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="EmlakAngularModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YakitTipi">
+      <EntityTypeMapping TypeName="EmlakAngularModel.YakitTipi">
+        <MappingFragment StoreEntitySet="YakitTipi">
+          <ScalarProperty Name="YakitTipId" ColumnName="YakitTipId" />
+          <ScalarProperty Name="YakitTipAd" ColumnName="YakitTipAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
