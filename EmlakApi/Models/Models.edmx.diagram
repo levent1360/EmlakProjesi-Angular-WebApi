@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8281da63b1b74622a0378ab755267428" Name="Diagram1" ZoomLevel="66">
+      <Diagram DiagramId="8281da63b1b74622a0378ab755267428" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="EmlakAngularModel.EsyaDurumu" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EmlakAngularModel.Ilanlar" Width="1.5" PointX="10" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EmlakAngularModel.IlanTip" Width="1.5" PointX="12.375" PointY="1.5" IsExpanded="true" />

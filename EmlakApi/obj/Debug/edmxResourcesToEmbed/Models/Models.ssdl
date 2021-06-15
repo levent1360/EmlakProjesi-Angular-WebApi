@@ -21,7 +21,7 @@
     <Property Name="IlanEsyaId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IlanYakitTipId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IlanOdaSayId" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="IlanFotoUrl" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IlanFotoUrl" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="IlanAdres" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IlanSahibiId" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>

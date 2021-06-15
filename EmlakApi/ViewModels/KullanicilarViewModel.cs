@@ -15,5 +15,7 @@ namespace EmlakApi.ViewModels
         public string KullaniciTipId { get; set; }
         public string KullaniciTipAd { get; set; }
         public string KullaniciTel { get; set; }
+        public int KullaniciilanSay { get; set; }
+
     }
 }

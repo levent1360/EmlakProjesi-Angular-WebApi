@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EmlakApi
 {
@@ -11,6 +12,7 @@ namespace EmlakApi
         {
             // Web API configuration and services
 
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -19,6 +21,9 @@ namespace EmlakApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+
         }
     }
 }

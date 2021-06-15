@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EmlakApi.Controllers
 {
@@ -28,8 +29,9 @@ namespace EmlakApi.Controllers
                 KullaniciSifre = x.KullaniciSifre,
                 KullaniciTel = x.KullaniciTel,
                 KullaniciTipId = x.KullaniciTipId,
-                KullaniciTipAd = x.KullaniciTipler.KullaniciTipAd
-            }).ToList();
+                KullaniciTipAd = x.KullaniciTipler.KullaniciTipAd,
+                KullaniciilanSay = x.Ilanlar.Count()
+            }).OrderBy(s=>s.KullaniciTipAd).ToList();
 
             return kullanicilar;
         }
@@ -100,6 +102,19 @@ namespace EmlakApi.Controllers
                 sonuc.mesaj = "Kullanıcı bulunmadı";
                 return sonuc;
             }
+            if (db.Kullanicilar.Count(s => s.KullaniciMail == k.KullaniciMail && s.KullaniciId!=k.KullaniciId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Girilen E-Posta adresi başka kullanıcıda kayıtlıdır";
+                return sonuc;
+            }
+
+            if (db.Kullanicilar.Count(s => s.KullaniciTel == k.KullaniciTel && s.KullaniciId != k.KullaniciId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Girilen TELEFON numarası başka kullanıcıda kayıtlıdır";
+                return sonuc;
+            }
 
             duzenlekullanici.KullaniciAdi = k.KullaniciAdi;
             duzenlekullanici.KullaniciMail = k.KullaniciMail;
@@ -139,7 +154,24 @@ namespace EmlakApi.Controllers
             sonuc.mesaj = "Üye silindi.";
             return sonuc;
         }
-        #endregion    
+        #endregion
+
+        #region Giris Kontrol
+
+        [HttpGet]
+        [Route("api/giriskontrol/{UyeMail}/{UyeSifre}")]
+        public GirisKontrol GirisKontrol(string UyeMail,string UyeSifre)
+        {
+            GirisKontrol kullaniciGiris = db.Kullanicilar.Where(s => s.KullaniciMail == UyeMail && s.KullaniciSifre == UyeSifre).Select(x => new GirisKontrol()
+            {
+                KullaniciId=x.KullaniciId,
+                KullaniciTipId=x.KullaniciTipId,
+                KullaniciTipAd=x.KullaniciTipler.KullaniciTipAd
+            }).FirstOrDefault();
+
+            return kullaniciGiris;
+        }
+        #endregion
 
         #region İlanlar
         [HttpGet]
@@ -176,6 +208,136 @@ namespace EmlakApi.Controllers
             return ilanlar;
         }
 
+        [HttpGet]
+        [Route("api/ilanlistebyuid/{IlanSahibiId}")]
+        public List<IlanlarViewModel> IlanByUidListe(string IlanSahibiId)
+        {
+            List<IlanlarViewModel> ilanlar = db.Ilanlar.Where(s=>s.IlanSahibiId==IlanSahibiId).Select(x => new IlanlarViewModel()
+            {
+                IlanId = x.IlanId,
+                IlanAd = x.IlanAd,
+                IlanILId = x.IlanILId,
+                IlanILAd = x.Iller.ILAd,
+                IlanILceId = x.IlanILceId,
+                IlanILceAd = x.Ilceler.IlceAd,
+                IlanAdres = x.IlanAdres,
+                IlanEsyaId = x.IlanEsyaId,
+                IlanEsyaAd = x.EsyaDurumu.EsyaAd,
+                IlanOdaSayId = x.IlanOdaSayId,
+                IlanOdaSayAd = x.OdaSayisi.OdaSayisiAd,
+                IlanFiyat = x.IlanFiyat,
+                IlanFotoUrl = x.IlanFotoUrl,
+                IlanMKare = x.IlanMKare,
+                IlanTipId = x.IlanTipId,
+                IlanTipAd = x.IlanTip.TipAd,
+                IlanYakitTipId = x.IlanYakitTipId,
+                IlanYakitTipAd = x.YakitTipi.YakitTipAd,
+                IlanSahibiId = x.IlanSahibiId
+            }).ToList();
+
+            foreach (var k in ilanlar)
+            {
+                k.kullaniciBilgi = Kullanicibyid(k.IlanSahibiId);
+            }
+            return ilanlar;
+        }
+
+        [HttpPost]
+        [Route("api/ilanekle")]
+        public SonucModel IlanEkle(Ilanlar ilan)
+        {
+            Ilanlar yeniilan = new Ilanlar()
+            {
+                IlanId = Guid.NewGuid().ToString(),
+                IlanAd = ilan.IlanAd,
+                IlanFiyat = ilan.IlanFiyat,
+                IlanEsyaId = ilan.IlanEsyaId,
+                IlanILId = ilan.IlanILId,
+                IlanILceId = ilan.IlanILceId,
+                IlanFotoUrl = ilan.IlanFotoUrl,
+                IlanMKare = ilan.IlanMKare,
+                IlanTipId = ilan.IlanTipId,
+                IlanAdres = ilan.IlanAdres,
+                IlanYakitTipId = ilan.IlanYakitTipId,
+                IlanOdaSayId = ilan.IlanOdaSayId,
+                IlanSahibiId = ilan.IlanSahibiId
+            };
+            if (db.Ilanlar.Count(s => s.IlanAd == ilan.IlanAd) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Girilen ilan adında ilan bulunmaktadır.";
+                return sonuc;
+            }
+
+            db.Ilanlar.Add(yeniilan);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "İlan başarıyla kaydedildi";
+            return sonuc;
+        }
+
+        [HttpPut]
+        [Route("api/ilanduzenle")]
+        public SonucModel IlanDuzenle(Ilanlar ilan)
+        {
+            Ilanlar duzenleilan = db.Ilanlar.Where(s => s.IlanId == ilan.IlanId).FirstOrDefault();
+
+            if (duzenleilan==null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Kayıt bulunamadı.";
+                return sonuc;
+            }
+
+
+            duzenleilan.IlanId = ilan.IlanId;
+            duzenleilan.IlanAd = ilan.IlanAd;
+            duzenleilan.IlanFiyat = ilan.IlanFiyat;
+            duzenleilan.IlanEsyaId = ilan.IlanEsyaId;
+            duzenleilan.IlanILId = ilan.IlanILId;
+            duzenleilan.IlanILceId = ilan.IlanILceId;
+            duzenleilan.IlanFotoUrl = ilan.IlanFotoUrl;
+            duzenleilan.IlanMKare = ilan.IlanMKare;
+            duzenleilan.IlanTipId = ilan.IlanTipId;
+            duzenleilan.IlanAdres = ilan.IlanAdres;
+            duzenleilan.IlanYakitTipId = ilan.IlanYakitTipId;
+            duzenleilan.IlanOdaSayId = ilan.IlanOdaSayId;
+            duzenleilan.IlanSahibiId = ilan.IlanSahibiId;
+           
+            if (db.Ilanlar.Count(s => s.IlanAd == ilan.IlanAd && s.IlanId!=ilan.IlanId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Girilen ilan adında ilan bulunmaktadır.";
+                return sonuc;
+            }
+
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "İlan başarıyla kaydedildi";
+            return sonuc;
+        }
+
+        [HttpDelete]
+        [Route("api/ilansil/{IlanId}")]
+        public SonucModel IlanSil(string IlanId)
+        {
+            Ilanlar sililan = db.Ilanlar.Where(s => s.IlanId == IlanId).FirstOrDefault();
+
+            if (sililan==null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "İlan bulunamadı.";
+                return sonuc;
+            }
+
+            db.Ilanlar.Remove(sililan);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "İlan başarıyla silindi.";
+            return sonuc;
+
+        }
+
         #endregion
 
         #region Ilantipleri
@@ -187,7 +349,7 @@ namespace EmlakApi.Controllers
             {
                 TipId = x.TipId,
                 TipAd = x.TipAd
-            }).ToList();
+            }).OrderBy(s=>s.TipAd).ToList();
 
             return ilantipler;
         }
@@ -841,15 +1003,15 @@ namespace EmlakApi.Controllers
 
         [HttpGet]
         [Route("api/Ilcelerbyilid/{IlId}")]
-        public IlcelerViewModel Ilcelerbyilid(string IlId)
+        public List<IlcelerViewModel> Ilcelerbyilid(string IlId)
         {
-            IlcelerViewModel ilce = db.Ilceler.Where(s => s.IlceIlid == IlId).Select(x => new IlcelerViewModel()
+            List<IlcelerViewModel> ilce = db.Ilceler.Where(s => s.IlceIlid == IlId).Select(x => new IlcelerViewModel()
             {
                 IlceId = x.IlceId,
                 IlceAd = x.IlceAd,
                 IlceIlid = x.IlceIlid,
                 IlceIlAd = x.Iller.ILAd
-            }).SingleOrDefault();
+            }).ToList();
 
             return ilce;
         }
@@ -857,10 +1019,10 @@ namespace EmlakApi.Controllers
         [Route("api/ilceekle")]
         public SonucModel ilceEkle(Ilceler ilce)
         {
-            Ilceler yeniile = new Ilceler()
+            Ilceler yeniilce = new Ilceler()
             {
                 IlceId = Guid.NewGuid().ToString(),
-                IlceAd=ilce.IlceAd,
+                IlceAd =ilce.IlceAd,
                 IlceIlid=ilce.IlceIlid
             };
 
@@ -871,7 +1033,7 @@ namespace EmlakApi.Controllers
                 return sonuc;
             }
 
-            db.Ilceler.Add(yeniile);
+            db.Ilceler.Add(yeniilce);
             db.SaveChanges();
             sonuc.islem = true;
             sonuc.mesaj = "İlce bilgisi başarıyla eklendi.";
@@ -931,6 +1093,8 @@ namespace EmlakApi.Controllers
             return sonuc;
         }
         #endregion
+
+        //de
 
     }
 }
